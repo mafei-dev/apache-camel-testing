@@ -51,6 +51,12 @@
             <version>${org.apache.camel.version}</version>
             <!-- use the same version as your Camel core version -->
         </dependency>
+        <dependency>
+            <groupId>com.mafei</groupId>
+            <artifactId>service-b</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
 
