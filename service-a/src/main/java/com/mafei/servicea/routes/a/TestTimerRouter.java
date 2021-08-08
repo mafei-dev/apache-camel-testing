@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class TestTimerRouter extends RouteBuilder {
 
     private final CurrentTime currentTime;
+    private final Combine combine;
 
     @Override
     public void configure() throws Exception {
@@ -25,10 +26,15 @@ public class TestTimerRouter extends RouteBuilder {
             //transformation
             //log
             from("timer:first-timer")//null
-                    //.transform().constant("Test constant message")
+                    .log("body after form - ${body}")
+                    .transform().constant("Test constant message")
+                    .log("body after transform - ${body}")
                     //.transform().constant("time is "+ LocalDateTime.now())
 //                    .transform().constant(currentTime.getCurrentTime())
                     .bean(currentTime) //does the class has only one method, no need to mention the method.
+                    .log("body after been called - ${body}")
+                    .bean(combine)
+                    .log("body combined - ${body}")
                     .to("log:first-timer");
         }
 
