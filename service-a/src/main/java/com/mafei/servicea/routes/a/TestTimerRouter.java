@@ -1,13 +1,14 @@
 package com.mafei.servicea.routes.a;
 
+import lombok.RequiredArgsConstructor;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
-
 @Component
+@RequiredArgsConstructor
 public class TestTimerRouter extends RouteBuilder {
 
+    private final CurrentTime currentTime;
 
     @Override
     public void configure() throws Exception {
@@ -25,7 +26,9 @@ public class TestTimerRouter extends RouteBuilder {
             //log
             from("timer:first-timer")//null
                     //.transform().constant("Test constant message")
-                    .transform().constant("time is "+ LocalDateTime.now())
+                    //.transform().constant("time is "+ LocalDateTime.now())
+//                    .transform().constant(currentTime.getCurrentTime())
+                    .bean(currentTime)
                     .to("log:first-timer");
         }
 
