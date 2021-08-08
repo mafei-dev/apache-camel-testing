@@ -1,11 +1,13 @@
 package com.mafei.servicea.routes.a;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class TestTimerRouter extends RouteBuilder {
 
     private final CurrentTime currentTime;
@@ -35,6 +37,16 @@ public class TestTimerRouter extends RouteBuilder {
                     .log("body after been called - ${body}")
                     .bean(combine)
                     .log("body combined - ${body}")
+
+                    //process with lambda expressions
+                    .process(
+                            // this is same as a bean with one void method
+                            exchange -> {
+                                log.info("Lambda processor {} ", exchange.getMessage().getBody());
+                            }
+                    )
+                    //process with implemented class
+                    .process(new SimpleProcessor())
                     .to("log:first-timer");
         }
 
