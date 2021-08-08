@@ -28,7 +28,7 @@ public class TestTimerRouter extends RouteBuilder {
                     //.transform().constant("Test constant message")
                     //.transform().constant("time is "+ LocalDateTime.now())
 //                    .transform().constant(currentTime.getCurrentTime())
-                    .bean(currentTime)
+                    .bean(currentTime) //does the class has only one method, no need to mention the method.
                     .to("log:first-timer");
         }
 
