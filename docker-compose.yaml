@@ -1,0 +1,7 @@
+version: "3"
+services:
+  rabitMQ:
+    image: "rmohr/activemq:5.10.0"
+    ports:
+      - "61616:61616"
+      - "8161:8161"
